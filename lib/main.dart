@@ -1,108 +1,10 @@
+import 'package:contador/contador_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(
     ContadorApp()
   );
-}
-
-class ContadorApp extends StatelessWidget {
-  const ContadorApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Contador',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue)
-      ),
-      home: const ContadorHomePage(title: 'Teste contador')
-    );
-  }
-}
-
-class ContadorHomePage extends StatefulWidget {
-
-  const ContadorHomePage({super.key, required this.title});
-
-  final String title;
-  
-  @override
-  State<StatefulWidget> createState() => _ContadorHomePageState();
-
-}
-
-class _ContadorHomePageState extends State<ContadorHomePage> {
-
-  int _contador = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _contador++;
-    });
-  }
-
-  void _decrementCounter() {
-    if(_contador == 0) {
-      return;
-    }
-
-    setState(() {
-      _contador--;
-    });
-  }
-
-  void _resetCounter() {
-    setState(() {
-      _contador = 0;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: theme.colorScheme.inversePrimary,
-        title: Text(widget.title),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              '$_contador',
-              style: theme.textTheme.headlineMedium,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 10.0,
-              children: <Widget>[
-                FloatingActionButton(
-                  onPressed: _decrementCounter,
-                  tooltip: 'Decrementar',
-                  child: Icon(Icons.remove),
-                ),
-                FloatingActionButton(
-                  onPressed: _incrementCounter,
-                  tooltip: 'Incrementar',
-                  child: Icon(Icons.add),
-                ),
-                FloatingActionButton(
-                  onPressed: _resetCounter,
-                  tooltip: 'Reiniciar',
-                  child: Icon(Icons.refresh),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
 }
 
 // -- DAQUI PRA BAIXO É APENAS PRA CONSULTA DE CONCEITOS
