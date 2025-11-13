@@ -1,9 +1,9 @@
-import 'package:contador/contador_widget.dart';
+import 'package:contador/app_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(
-    ContadorApp()
+    AppWidget()
   );
 }
 
