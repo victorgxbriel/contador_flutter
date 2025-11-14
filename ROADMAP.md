@@ -78,17 +78,29 @@ O objetivo é aprender Flutter de forma progressiva — do básico à personaliz
 
 ---
 
+## 📃 Fase 5 — Sistema de Logs
+> 🎯 **Objetivo:** manter o logging da aplicação para melhor monitoramento.
+
+- Logging com o `logger` do dart
+- Maior detalhamento dos logs
+
+**Checklist:**
+- [x] Implementação do logging com o logger
+- [x] Logger mais detalhado com o PrettyLogger
+- [ ] Fluxos loggados
+
+
 ## 🧮 Progresso Geral
 | Fase | Descrição | Tarefas | Concluídas |
 |------|------------|----------|-------------|
-| 🧩 1 | Fundamentos | 5 | 3 |
+| 🧩 1 | Fundamentos | 5 | 5 |
 | ⚙️ 2 | Configurações | 6 | 4 |
 | 🌊 3 | Feedback visual | 5 | 1 |
 | ☀️ 4 | Persistência e UX | 5 | 0 |
-| **Total** | | **21** | **8** |
+| 📃 5 | Logging | 3 | 2 |
+| **Total** | | **24** | **12** |
 
-✅ **Progresso:** 8 de 21 tarefas concluídas  
-_Atualize manualmente conforme marcar as caixas acima._
+✅ **Progresso:** 12 de 24 tarefas concluídas  
 
 ---
 
@@ -96,6 +108,7 @@ _Atualize manualmente conforme marcar as caixas acima._
 - [Documentação Flutter](https://docs.flutter.dev/)
 - [Widgets Catalog](https://docs.flutter.dev/ui/widgets)
 - [SharedPreferences Package](https://pub.dev/packages/shared_preferences)
+- [Logger Package](https://pub.dev/packages/logger)
 - [AnimatedContainer Widget](https://api.flutter.dev/flutter/widgets/AnimatedContainer-class.html)
 
 ---
