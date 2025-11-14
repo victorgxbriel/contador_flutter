@@ -81,7 +81,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context); // Isso aqui é un InheretedWidget(o que você pode usar para passar os estados)
     final double progresso = _configuracaoAtiva.metaDiaria > 0 ? _contagemAtual / _configuracaoAtiva.metaEmMl : 0.0;
-
+    final int coposTomados = (_configuracaoAtiva.copoEmMl > 0) 
+                            ? _contagemAtual ~/ _configuracaoAtiva.copoEmMl 
+                            : 0;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.colorScheme.inversePrimary,
@@ -204,6 +206,61 @@ class _HomePageState extends State<HomePage> {
                   child: Icon(Icons.refresh),
                 ),
               ]
+            ),
+            // --- INÍCIO DA ADIÇÃO (VERSÃO ESTILIZADA) ---
+            const SizedBox(height: 24,), // Espaçamento
+
+            // Usamos um Padding para dar um respiro nas laterais
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 24.0),
+                decoration: BoxDecoration(
+                  // Usamos uma cor do tema, que se adapta ao light/dark mode
+                  color: theme.colorScheme.primaryContainer.withOpacity(0.5), 
+                  borderRadius: BorderRadius.circular(16.0), // Bordas arredondadas
+                ),
+                child: Column(
+                  children: [
+                    // Texto principal (Ex: "Você bebeu")
+                    if (coposTomados == 0)
+                      Text(
+                        'Hora de se hidratar!',
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: theme.colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    else
+                      Text(
+                        'Você bebeu',
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: theme.colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    
+                    const SizedBox(height: 8),
+
+                    // O NÚMERO (Destaque total)
+                    Text(
+                      '$coposTomados', 
+                      style: theme.textTheme.displayLarge?.copyWith( // Estilo bem grande
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.primary, // Cor de destaque principal
+                      ),
+                    ),
+                    
+                    // O Subtexto (Ex: "copos hoje")
+                    Text(
+                      coposTomados == 1 ? 'copo hoje' : 'copos hoje',
+                      style: theme.textTheme.titleMedium?.copyWith( // Estilo menor
+                        color: theme.colorScheme.onPrimaryContainer.withOpacity(0.8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ),

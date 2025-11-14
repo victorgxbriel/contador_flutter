@@ -15,8 +15,8 @@ O objetivo é aprender Flutter de forma progressiva — do básico à personaliz
 **Checklist:**
 - [x] Criar contador simples de copos de água
 - [x] Implementar **incremento**, **decremento** e **reset**
-- [ ] Exibir valor atual (ex: “Você bebeu 3 copos hoje”)
-- [ ] Mostrar alerta ou texto quando o valor for 0 (“Hora de se hidratar!”)
+- [x] Exibir valor atual (ex: “Você bebeu 3 copos hoje”)
+- [x] Mostrar alerta ou texto quando o valor for 0 (“Hora de se hidratar!”)
 - [x] Adicionar botão no `AppBar` para abrir o **modal de configurações** (pode ser `showModalBottomSheet`)
 
 
