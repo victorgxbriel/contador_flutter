@@ -1,5 +1,6 @@
 
 
+import 'package:contador/app_logger.dart';
 import 'package:contador/models/cofiguracao_agua.dart';
 import 'package:contador/screens/widgets/configuracao_modal.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final log = logger(HomePage);
 
   int _contagemAtual = 0;
 
@@ -29,6 +31,7 @@ class _HomePageState extends State<HomePage> {
 
   void _incrementCounter() {
     setState(() {
+      log.i('incrementando copo');
       final novaContagem = _contagemAtual + (_configuracaoAtiva.passoIncremento * _configuracaoAtiva.copoEmMl);
 
       _contagemAtual = novaContagem;
@@ -37,6 +40,7 @@ class _HomePageState extends State<HomePage> {
 
   void _decrementCounter() {
     setState(() {
+      log.i('decrementando copo');
       final novaContagem = _contagemAtual - (_configuracaoAtiva.passoDecremento * _configuracaoAtiva.copoEmMl);
 
       if(novaContagem >= 0) {
