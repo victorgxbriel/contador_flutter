@@ -19,6 +19,7 @@ class ConfiguracaoModal extends StatefulWidget {
 
 class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
   final log = logger(ConfiguracaoModal);
+  final detailLog = detailLogger(ConfiguracaoModal);
 
   bool _isCreating = false;
 
@@ -213,7 +214,7 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if(value == null || (int.tryParse(value) ?? 0) <= 0) {
-                    log.w('Valor do campo Passo Decremento inválido');
+                    detailLog.w('Valor do campo Passo Decremento inválido');
                     return 'Valor invalidor';
                   }
                   return null;
