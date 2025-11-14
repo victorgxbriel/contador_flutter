@@ -3,6 +3,7 @@
 import 'package:contador/models/cofiguracao_agua.dart';
 import 'package:contador/screens/widgets/configuracao_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -90,6 +91,57 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Center (
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        _configuracaoAtiva.nome,
+                        style: theme.textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          color: theme.colorScheme.secondary
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: 5.0,
+                        children: [
+                          Icon(
+                            Symbols.target,
+                            color: Colors.orange,
+                          ),
+                          Text(
+                            'Meta: ${_configuracaoAtiva.metaDiaria} ${_configuracaoAtiva.unidadeMeta.medida}'
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: 5.0,
+                        children: [
+                          Icon(
+                            Symbols.glass_cup,
+                            color: Colors.blueAccent,
+                          ),
+                          Text(
+                            'Copo: ${_configuracaoAtiva.valorCopo} ${_configuracaoAtiva.unidadeCopo.medida}'
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              )
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
               child: LinearProgressIndicator(
@@ -106,10 +158,6 @@ class _HomePageState extends State<HomePage> {
                 color: theme.colorScheme.primary,
               ),
             ),
-            Text(
-              'Meta: ${_configuracaoAtiva.metaDiaria} ${_configuracaoAtiva.unidadeMeta.medida}',
-              style: theme.textTheme.bodyLarge,
-            ),
             const SizedBox(height: 30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -118,12 +166,33 @@ class _HomePageState extends State<HomePage> {
                 FloatingActionButton(
                   onPressed: _decrementCounter,
                   tooltip: 'Decrementar',
-                  child: Icon(Icons.remove),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 2.0,
+                    children: [
+                      Text('${_configuracaoAtiva.passoDecremento}'),
+                      const Icon(
+                        Symbols.water_loss,
+                        fill: 0.5,
+                        color: Colors.redAccent,
+                      )
+                    ],
+                  ),
                 ),
                 FloatingActionButton(
                   onPressed: _incrementCounter,
                   tooltip: 'Incrementar',
-                  child: Icon(Icons.add),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 2.0,
+                    children: [
+                      Text('${_configuracaoAtiva.passoIncremento}'),
+                      const Icon(
+                        Symbols.water_full,
+                        fill: 1.0,
+                        color: Colors.blueAccent,),
+                    ],
+                  ),
                 ),
                 FloatingActionButton(
                   onPressed: _resetCounter,
