@@ -87,7 +87,7 @@ O objetivo é aprender Flutter de forma progressiva — do básico à personaliz
 **Checklist:**
 - [x] Implementação do logging com o logger
 - [x] Logger mais detalhado com o PrettyLogger
-- [ ] Fluxos loggados
+- [x] Fluxos loggados
 
 
 ## 🧮 Progresso Geral
@@ -97,10 +97,10 @@ O objetivo é aprender Flutter de forma progressiva — do básico à personaliz
 | ⚙️ 2 | Configurações | 6 | 4 |
 | 🌊 3 | Feedback visual | 5 | 1 |
 | ☀️ 4 | Persistência e UX | 5 | 0 |
-| 📃 5 | Logging | 3 | 2 |
-| **Total** | | **24** | **12** |
+| 📃 5 | Logging | 3 | 3 |
+| **Total** | | **24** | **13** |
 
-✅ **Progresso:** 12 de 24 tarefas concluídas  
+✅ **Progresso:** 13 de 24 tarefas concluídas  
 
 ---
 

@@ -19,7 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final log = logger(HomePage);
+  final log = logger(_HomePageState);
+  final detailLog = detailLogger(_HomePageState);
 
   int _contagemAtual = 0;
 
@@ -29,51 +30,84 @@ class _HomePageState extends State<HomePage> {
     ConfiguracaoAgua.defaultValues(),
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    detailLog.d("initState");
+    detailLog.d("Configuração inicial: ${_configuracaoAtiva.nome}");
+  }
+
+  @override
+  void dispose() {
+    detailLog.d("dispose");
+    super.dispose();
+  }
+
   void _incrementCounter() {
+    log.i("Incremento solicitado");
     setState(() {
-      log.i('incrementando copo');
       final novaContagem = _contagemAtual + (_configuracaoAtiva.passoIncremento * _configuracaoAtiva.copoEmMl);
+      detailLog.d("Contagem: $_contagemAtual - > $novaContagem");
 
       _contagemAtual = novaContagem;
     });
   }
 
   void _decrementCounter() {
+    log.i("Decremento solicitado");
     setState(() {
-      log.i('decrementando copo');
       final novaContagem = _contagemAtual - (_configuracaoAtiva.passoDecremento * _configuracaoAtiva.copoEmMl);
 
       if(novaContagem >= 0) {
+        detailLog.d("Contagem: $_contagemAtual -> $novaContagem");
         _contagemAtual = novaContagem;
       } else {
+        detailLog.w("Tentativa de decrementar abaixo de zero. Travado em 0.");
         _contagemAtual = 0;
       }
     });
   }
 
   void _resetCounter() {
+    log.i("Reset solicitado");
     setState(() {
       _contagemAtual = 0;
     });
   }
 
   void _abrirModalConfiguracoes() async {
-    final resultado = await showModalBottomSheet<ConfiguracaoAgua>(
-      context: context,
-      isScrollControlled: true,
-      builder: (ctx) {
-        return ConfiguracaoModal(listaConfiguracoes: _listaConfiguracoes, configuracaoAtiva: _configuracaoAtiva);
-      }
-    );
+    log.i("Abrindo modal de configurações");
+    try {
 
-    if(resultado != null) {
-      setState(() {
-        _configuracaoAtiva = resultado;
-
-        if(!_listaConfiguracoes.any((cfg) => cfg.nome == resultado.nome)) {
-          _listaConfiguracoes.add(resultado);
+      final resultado = await showModalBottomSheet<ConfiguracaoAgua>(
+        context: context,
+        isScrollControlled: true,
+        builder: (ctx) {
+          return ConfiguracaoModal(listaConfiguracoes: _listaConfiguracoes, configuracaoAtiva: _configuracaoAtiva);
         }
-      });
+      );
+
+      if(resultado != null) {
+        log.i("Nova configuração recebida: ${resultado.nome}");
+        setState(() {
+          _configuracaoAtiva = resultado;
+
+          if(!_listaConfiguracoes.any((cfg) => cfg.nome == resultado.nome)) {
+            log.i("Salvando nova configuração na lista.");
+            _listaConfiguracoes.add(resultado);
+            detailLog.d("Total de configurações: ${_listaConfiguracoes.length}");
+          }
+        });
+      } else {
+        detailLog.d("Modal fechado sem seleção (resultado == null)");
+      }
+
+    } catch (e, s) {
+      detailLog.e(
+        "Erro fatal ao abrir ou processar modal de configurações",
+        error: e,
+        stackTrace: s
+      );
     }
   }
   

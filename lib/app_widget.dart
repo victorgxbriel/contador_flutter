@@ -1,5 +1,6 @@
 
 
+import 'package:contador/app_logger.dart';
 import 'package:contador/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,9 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final detailLog = detailLogger(AppWidget);
+    detailLog.d("Build: AppWidget (MaterialApp roote)");
+
     return MaterialApp(
       title: 'Contador de água',
       theme: ThemeData(

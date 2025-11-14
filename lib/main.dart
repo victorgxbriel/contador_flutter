@@ -1,7 +1,11 @@
+import 'package:contador/app_logger.dart';
 import 'package:contador/app_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  final detailLog = detailLogger(main.runtimeType);
+  detailLog.i("Aplicação iniciada");
+  
   runApp(
     AppWidget()
   );

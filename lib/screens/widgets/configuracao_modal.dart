@@ -18,8 +18,8 @@ class ConfiguracaoModal extends StatefulWidget {
 }
 
 class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
-  final log = logger(ConfiguracaoModal);
-  final detailLog = detailLogger(ConfiguracaoModal);
+  final log = logger(_ConfiguracaoModalState);
+  final detailLog = detailLogger(_ConfiguracaoModalState);
 
   bool _isCreating = false;
 
@@ -41,6 +41,7 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
   @override
   void initState() {
     super.initState();
+    detailLog.d("initState");
     _nomeController = TextEditingController();
     _metaController = TextEditingController();
     _copoController = TextEditingController();
@@ -55,11 +56,13 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
     _copoController.dispose();
     _incrementoController.dispose();
     _decrementoController.dispose();
+    detailLog.d("dispose");
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    detailLog.d("Build(modo: ${_isCreating ? 'Formulário' : 'Lista'})");
 
     final bottomPadding = MediaQuery.of(context).padding.bottom + 16;
 
@@ -99,6 +102,7 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
                 ),
                 trailing: isAtiva ? Icon(Icons.check_circle, color: theme.colorScheme.primary,) : null,
                 onTap: () {
+                  log.i("Configuração selecionada: ${config.nome}");
                   Navigator.pop(context, config);
                 },
               );
@@ -110,6 +114,7 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
               minimumSize: const Size(double.infinity, 40)
             ),
             onPressed: () {
+              log.i("Modo 'Criar Nova Configuração' ativado.");
               setState(() {
                 _isCreating = true;
               });
@@ -151,6 +156,7 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
                 decoration: const InputDecoration(labelText: 'Nome da configuração (ex: Garrafa 1L)'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
+                    detailLog.w('Valor do campo Nome inválido: "$value"');
                     return 'Por favor, preencha este campo';
                   }
                   return null;
@@ -165,6 +171,7 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || (int.tryParse(value) ?? 0) <= 0) {
+                    detailLog.w('Valor do campo Meta inválido: "$value"');
                     return 'Valor invalido';
                   }
                   return null;
@@ -183,6 +190,7 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || (int.tryParse(value) ?? 0) <= 0) {
+                    detailLog.w('Valor do campo Copo inválido: "$value"');
                     return 'Valor invalido';
                   }
                   return null;
@@ -201,6 +209,7 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if(value == null || (int.tryParse(value) ?? 0) <= 0) {
+                    detailLog.w('Valor do campo Passo Incremento inválido: "$value"');
                     return 'Valor invalidor';
                   }
                   return null;
@@ -214,7 +223,7 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if(value == null || (int.tryParse(value) ?? 0) <= 0) {
-                    detailLog.w('Valor do campo Passo Decremento inválido');
+                    detailLog.w('Valor do campo Passo Decremento inválido: "$value"');
                     return 'Valor invalidor';
                   }
                   return null;
@@ -225,6 +234,7 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
                 children: [
                   TextButton(
                     onPressed: () {
+                      log.i("Criação de nova configuração cancelada.");
                       setState(() {
                         _isCreating = false;
                       });
@@ -269,7 +279,9 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
   }
 
   void _salvarConfiguracao() {
+    log.i("Tentativa de salvar nova configuração");
     if(!_formKey.currentState!.validate()){
+      log.w("Falha na validação do formulário de configuração.");
       return;
     }
 
@@ -289,6 +301,8 @@ class _ConfiguracaoModalState extends State<ConfiguracaoModal> {
       unidadeMeta: _unidadeMetaSelect
     );
 
+    detailLog.d("Nova configuração criada: {nome: ${novaConfig.nome}, meta: ${novaConfig.metaDiaria}}");
+    log.i("Salvando e fechando modal com nova config: ${novaConfig.nome}");
     Navigator.pop(context, novaConfig); // esse pop do navigator é semelhante ao de kotlin
   }
   

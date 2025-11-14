@@ -6,6 +6,7 @@ final logger = (Type type) => Logger(
 
 final detailLogger = (Type type) => Logger(
   printer: DetailLogger(type.toString()),
+  //filter: DevelopmentFilter() // opcional(Define o filtro de nivel do log)
 );
 
 class AppLogger extends LogPrinter {
